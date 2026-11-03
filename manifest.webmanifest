@@ -1,0 +1,13 @@
+{
+  "name": "나고야·게로 겨울 여행",
+  "short_name": "나고야 여행",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FBF7F0",
+  "theme_color": "#EFE2CC",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

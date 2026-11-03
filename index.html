@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<title>나고야 여행</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="나고야 여행">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FBF7F0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --washi:#FBF7F0; --paper:#FFFEFB; --ink:#4A3D31; --soft:#8A7B6B; --line:#EFE5D6;
+  --ai:#EFE2CC; --ai-deep:#E3D2B6; --shu:#D06A50; --sakura:#FBEAE2; --matcha:#B5C48F;
+  --mikan:#EBA75A; --snow:#F5EDE0; --on-ai:#5A4634; --wave:rgba(255,255,255,.6);
+  color-scheme:only light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);background-color:var(--washi);
+  background-image:radial-gradient(circle at 20% 30%, rgba(160,130,100,.05) 0 1px, transparent 1.5px),
+                   radial-gradient(circle at 70% 80%, rgba(160,130,100,.05) 0 1px, transparent 1.5px);
+  background-size:14px 14px, 23px 23px;
+  font-family:"Gowun Dodum","Zen Maru Gothic",-apple-system,"Apple SD Gothic Neo",sans-serif;
+  font-size:16px;line-height:1.65;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--washi)}
+a{color:inherit}
+.jp{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;font-weight:700}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 40px}
+
+/* ===== hero: noren + seigaiha ===== */
+.hero{
+  margin:0 -16px;padding:34px 22px 64px;color:var(--on-ai);position:relative;overflow:hidden;
+  background-color:var(--ai);
+  background-image:
+    radial-gradient(circle at 100% 150%, var(--ai) 24%, var(--wave) 25%, var(--wave) 28%, var(--ai) 29%, var(--ai) 36%, var(--wave) 36%, var(--wave) 40%, transparent 40%, transparent),
+    radial-gradient(circle at 0 150%, var(--ai) 24%, var(--wave) 25%, var(--wave) 28%, var(--ai) 29%, var(--ai) 36%, var(--wave) 36%, var(--wave) 40%, transparent 40%, transparent),
+    radial-gradient(circle at 50% 100%, var(--wave) 10%, var(--ai) 11%, var(--ai) 23%, var(--wave) 24%, var(--wave) 30%, var(--ai) 31%, var(--ai) 43%, var(--wave) 44%, var(--wave) 50%, var(--ai) 51%, var(--ai) 63%, var(--wave) 64%, var(--wave) 71%, transparent 71%, transparent);
+  background-size:56px 28px;
+}
+.noren{position:absolute;left:0;right:0;bottom:0;height:34px;display:flex;gap:6px;padding:0 10px}
+.noren span{flex:1;background:var(--washi);border-radius:14px 14px 0 0}
+.snow{position:absolute;inset:0;pointer-events:none}
+.snow i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.95;box-shadow:0 0 0 1px rgba(160,130,100,.15)}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative}
+.kicker{display:inline-block;background:var(--shu);color:#fff;border-radius:999px;padding:3px 12px;font-size:14px}
+h1{font-family:"Jua",sans-serif;font-weight:400;font-size:38px;line-height:1.2;margin:14px 0 6px;position:relative}
+.hero p{margin:0;opacity:.9;position:relative}
+.onsen{width:78px;height:78px;flex:0 0 auto}
+
+/* ===== ticket (きっぷ) ===== */
+.ticket{
+  position:relative;margin:-22px 6px 0;background:var(--paper);border-radius:16px;
+  border:2px solid var(--line);padding:16px 18px 14px;box-shadow:0 6px 0 var(--line);
+}
+.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:var(--washi);border:2px solid var(--line)}
+.ticket::before{left:-11px;border-left-color:transparent;border-bottom-color:transparent;transform:rotate(45deg)}
+.ticket::after{right:-11px;border-right-color:transparent;border-top-color:transparent;transform:rotate(45deg)}
+.route{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.stn{text-align:center}
+.stn b{display:block;font-family:"Jua",sans-serif;font-weight:400;font-size:26px;line-height:1.1}
+.stn small{color:var(--soft);font-size:13px}
+.arrow{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--soft) 0 6px,transparent 6px 11px);position:relative}
+.arrow::after{content:"✈";position:absolute;left:50%;top:-12px;transform:translateX(-50%);background:var(--paper);padding:0 6px;color:var(--on-ai)}
+.tmeta{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:2px dotted var(--line);font-size:14px}
+.tmeta span{color:var(--soft);display:block;font-size:12px}
+.tmeta b{font-weight:400;font-family:"Jua",sans-serif;font-size:17px}
+
+/* ===== sticky tabs ===== */
+nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--washi);margin:20px -16px 0;padding:10px 0}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:0 0 auto;text-decoration:none;font-size:14px;padding:7px 14px;border-radius:999px;background:var(--paper);border:2px solid var(--line);font-family:"Jua",sans-serif}
+.tabs a.on{background:var(--shu);border-color:var(--shu);color:#fff}
+
+section{margin-top:30px}
+.sec-head{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.sec-head h2{font-family:"Jua",sans-serif;font-weight:400;font-size:24px;margin:0;line-height:1.2}
+.sec-head .ico{font-size:22px}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:16px}
+
+/* flights */
+.fl{display:flex;gap:12px;align-items:flex-start;padding:12px 0}
+.fl+.fl{border-top:2px dotted var(--line)}
+.fl:first-child{padding-top:0}.fl:last-child{padding-bottom:0}
+.chip{flex:0 0 auto;font-family:"Jua",sans-serif;font-size:13px;border-radius:10px;padding:4px 9px}
+.chip.go{background:var(--snow);color:var(--on-ai);border:1px solid var(--line)}
+.chip.back{background:var(--sakura);color:var(--shu)}
+.fl b{font-family:"Jua",sans-serif;font-weight:400;font-size:18px;display:block}
+.fl small{color:var(--soft);font-size:14px;display:block}
+
+/* day cards */
+.day{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.kanji{
+  flex:0 0 56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  color:#fff;font-size:24px;line-height:1;box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)
+}
+.k1{background:var(--mikan)} .k2{background:var(--shu)} .k3{background:#9A7B5A} .k4{background:var(--matcha)}
+.day h2{font-family:"Jua",sans-serif;font-weight:400;font-size:24px;margin:0;line-height:1.2}
+.day small{color:var(--soft);font-size:14px}
+.tl{list-style:none;margin:0;padding:0 0 0 4px;position:relative}
+.tl::before{content:"";position:absolute;left:66px;top:8px;bottom:8px;border-left:2px dashed var(--line)}
+.tl li{display:grid;grid-template-columns:56px 22px 1fr;align-items:start;padding:8px 0}
+.t{font-family:"Jua",sans-serif;font-size:15px;color:var(--soft);padding-top:2px;font-variant-numeric:tabular-nums}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--line);margin:6px 0 0 2px;position:relative;z-index:1}
+.tl li.key .dot{border-color:var(--shu);background:var(--shu)}
+.tl li.key .t{color:var(--shu)}
+.what{font-size:16px}
+.tl li.key .what{font-family:"Jua",sans-serif;font-size:17px}
+.note{display:block;font-size:14px;color:var(--soft)}
+.memo{
+  margin-top:14px;background:var(--sakura);border-radius:14px;padding:12px 14px 12px 44px;font-size:14px;position:relative
+}
+.memo::before{content:"⚠︎";position:absolute;left:14px;top:10px;font-size:18px;color:var(--shu)}
+
+/* stays */
+.stay{padding:14px 0;position:relative}
+.stay+.stay{border-top:2px dotted var(--line)}
+.stay:first-child{padding-top:0}.stay:last-child{padding-bottom:0}
+.stay-name{font-family:"Jua",sans-serif;font-size:19px;padding-right:70px}
+.stay-dates{font-size:14px;color:var(--soft)}
+.hanko{
+  position:absolute;right:2px;top:-4px;width:58px;height:58px;border-radius:50%;
+  border:3px solid var(--shu);color:var(--shu);display:grid;place-items:center;text-align:center;
+  font-size:13px;line-height:1.15;transform:rotate(-12deg);background:transparent
+}
+.stay:first-child .hanko{top:-8px}
+.hanko.wait{border-style:dashed;border-color:var(--soft);color:var(--soft)}
+.stay ul{margin:8px 0 0;padding-left:18px;font-size:14px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{text-decoration:none;font-size:14px;padding:8px 14px;border-radius:999px;background:var(--snow);color:var(--on-ai);font-family:"Jua",sans-serif}
+.cand{display:flex;justify-content:space-between;gap:10px;padding:9px 0;font-size:14px}
+.cand+.cand{border-top:1px solid var(--line)}
+.cand a{text-decoration:none;font-family:"Jua",sans-serif;font-size:15px}
+.cand small{display:block;color:var(--soft)}
+.cand em{font-style:normal;flex:0 0 auto;align-self:center;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--washi);border:1px solid var(--line)}
+.car{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.car div{background:var(--snow);border-radius:14px;padding:10px 12px;font-size:13px;color:var(--soft)}
+.car b{display:block;font-family:"Jua",sans-serif;font-weight:400;font-size:16px;color:var(--ink)}
+
+/* checklist */
+.prog{display:flex;align-items:center;gap:10px;margin:-2px 0 12px;font-size:14px;color:var(--soft)}
+.bar{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--matcha);border-radius:999px;transition:width .3s}
+.check{list-style:none;margin:0;padding:0}
+.check li+li{border-top:1px dotted var(--line)}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:11px 0;cursor:pointer}
+.check input{appearance:none;-webkit-appearance:none;flex:0 0 24px;width:24px;height:24px;border:2px solid var(--line);border-radius:50%;margin:0;background:var(--paper);display:grid;place-content:center}
+.check input:checked{background:var(--shu);border-color:var(--shu)}
+.check input:checked::after{content:"済";color:#fff;font-size:12px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700}
+.check input:focus-visible{outline:3px solid var(--mikan);outline-offset:2px}
+.check input:checked + span{color:var(--soft);text-decoration:line-through}
+.check small{display:block;color:var(--soft);font-size:13px}
+
+footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13px}
+footer .mikans{font-size:20px;letter-spacing:4px;display:block;margin-bottom:4px}
+a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:8px}
+@media (prefers-reduced-motion:no-preference){
+  .steam path{animation:rise 3.2s ease-in-out infinite}
+  .steam path:nth-child(2){animation-delay:.6s}.steam path:nth-child(3){animation-delay:1.2s}
+  @keyframes rise{0%,100%{transform:translateY(0);opacity:.9}50%{transform:translateY(-4px);opacity:.5}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="snow" aria-hidden="true">
+    <i style="left:12%;top:18%"></i><i style="left:30%;top:8%;width:4px;height:4px"></i><i style="left:58%;top:22%"></i>
+    <i style="left:76%;top:12%;width:4px;height:4px"></i><i style="left:88%;top:40%"></i><i style="left:44%;top:46%;width:4px;height:4px"></i>
+  </div>
+  <div class="hero-top">
+    <span class="kicker jp">冬の旅 · 2人旅</span>
+    <svg class="onsen" viewBox="0 0 80 80" aria-hidden="true">
+      <circle cx="40" cy="40" r="38" fill="#FFFAF2" opacity=".95"/>
+      <g class="steam" fill="none" stroke="#C4573F" stroke-width="5" stroke-linecap="round">
+        <path d="M26 44c-5-6 5-9 0-16"/><path d="M40 42c-5-6 5-9 0-16"/><path d="M54 44c-5-6 5-9 0-16"/>
+      </g>
+      <path d="M18 50c0 9 10 14 22 14s22-5 22-14" fill="none" stroke="#C4573F" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h1>나고야 · 게로<br>겨울 온천 여행</h1>
+  <p>둘이 떠나는 3박 4일 ♡</p>
+  <div class="noren" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<div class="ticket" role="img" aria-label="인천에서 나고야와 게로, 12월 18일부터 21일까지 2명">
+  <div class="route">
+    <div class="stn"><b>인천</b><small>ICN</small></div>
+    <div class="arrow"></div>
+    <div class="stn"><b class="jp">名古屋</b><small>나고야</small></div>
+    <div class="arrow" style="flex:.6"></div>
+    <div class="stn"><b class="jp">下呂</b><small>게로</small></div>
+  </div>
+  <div class="tmeta">
+    <div><span>날짜</span><b>12.18 – 12.21</b></div>
+    <div><span>인원</span><b>어른 2</b></div>
+    <div><span>숙박</span><b>나고야 2 · 게로 1</b></div>
+  </div>
+</div>
+
+<nav class="days" aria-label="섹션 이동">
+  <div class="tabs">
+    <a href="#flights">✈ 항공</a>
+    <a href="#day1">18 金</a>
+    <a href="#day2">19 土</a>
+    <a href="#day3">20 日</a>
+    <a href="#day4">21 月</a>
+    <a href="#stays">🏨 숙소</a>
+    <a href="#todo">✔ 준비물</a>
+  </div>
+</nav>
+
+<section id="flights">
+  <div class="sec-head"><span class="ico" aria-hidden="true">✈️</span><h2>항공편</h2></div>
+  <div class="card">
+    <div class="fl">
+      <span class="chip go">가는 편</span>
+      <div><b>12/18 금 · 15:45 → 17:30</b><small>LJ293 진에어 · 인천 → 나고야 · 1시간 45분</small><small>13:45까지 인천공항 도착</small></div>
+    </div>
+    <div class="fl">
+      <span class="chip back">오는 편</span>
+      <div><b>12/21 월 · 20:00 → 22:15</b><small>KE5082 (진에어 운항) · 나고야 제1터미널 → 인천 제2터미널</small><small>나고야에서는 진에어 카운터에서 체크인</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="day1">
+  <div class="day"><span class="kanji k1 jp">金</span><div><h2>도착하는 밤</h2><small>12월 18일 · 나고야 첫 맛 보고 일찍 쉬기</small></div></div>
+  <div class="card">
+    <ol class="tl">
+      <li class="key"><span class="t">17:30</span><span class="dot"></span><div><span class="what">주부국제공항 도착</span><span class="note">뮤스카이로 메이테쓰 나고야역까지 약 30분</span></div></li>
+      <li><span class="t">19:30</span><span class="dot"></span><div><span class="what">액세스 바이 르와지르 체크인</span><span class="note">나고야역에서 지하철 사쿠라도리선으로 히사야오도리역(약 6분)</span></div></li>
+      <li><span class="t">20:00</span><span class="dot"></span><div><span class="what">🍗 테바사키 저녁</span><span class="note">사카에에서 나고야식 닭날개와 맥주</span></div></li>
+      <li><span class="t">21:00</span><span class="dot"></span><div><span class="what">✨ 오아시스21 야경</span><span class="note">호텔에서 걸어서 산책, 유리 지붕 위 무료</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="day2">
+  <div class="day"><span class="kanji k2 jp">土</span><div><h2>치이카와와 쇼핑</h2><small>12월 19일 · 사카에와 오스를 걸어서</small></div></div>
+  <div class="card">
+    <ol class="tl">
+      <li class="key"><span class="t">10:00</span><span class="dot"></span><div><span class="what">치이카와랜드 나고야 파르코점</span><span class="note">개점 직후가 덜 붐벼요 · 지하철 야바초역</span></div></li>
+      <li class="key"><span class="t">11:00</span><span class="dot"></span><div><span class="what">🍜 치이카와 라멘 부타</span><span class="note">파르코 서관 7층 · 2인 예약 필수 · 미니 사이즈도 충분</span></div></li>
+      <li><span class="t">12:30</span><span class="dot"></span><div><span class="what">🎀 오스 상점가 애니 굿즈</span><span class="note">야바초에서 걸어서 10분 · 중고 굿즈숍, 길거리 음식</span></div></li>
+      <li><span class="t">15:00</span><span class="dot"></span><div><span class="what">🛍 사카에 백화점과 카페</span><span class="note">마쓰자카야, 미쓰코시, 히사야오도리 공원</span></div></li>
+      <li><span class="t">저녁</span><span class="dot"></span><div><span class="what">🐷 야바톤 미소카츠</span><span class="note">된장소스 돈카츠 후 호텔에서 휴식</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="day3">
+  <div class="day"><span class="kanji k3 jp">日</span><div><h2>게로 온천으로</h2><small>12월 20일 · 렌터카로 산길 드라이브</small></div></div>
+  <div class="card">
+    <ol class="tl">
+      <li class="key"><span class="t">9:00</span><span class="dot"></span><div><span class="what">🚗 렌터카 픽업 · 체크아웃</span><span class="note">사카에 근처 영업소</span></div></li>
+      <li><span class="t">9:30</span><span class="dot"></span><div><span class="what">게로로 출발</span><span class="note">국도 41호선 경유 약 2시간</span></div></li>
+      <li><span class="t">11:30</span><span class="dot"></span><div><span class="what">게로 도착, 가벼운 점심</span><span class="note">저녁에 히다규가 나오니 점심은 다른 메뉴로</span></div></li>
+      <li><span class="t">13:00</span><span class="dot"></span><div><span class="what">♨ 온천가 산책과 족욕</span><span class="note">히다강 다리 건너 천천히</span></div></li>
+      <li class="key"><span class="t">15:00</span><span class="dot"></span><div><span class="what">스이메이칸 체크인</span><span class="note">늦어도 16:30까지 · 17:00 마감</span></div></li>
+      <li class="key"><span class="t">18:00</span><span class="dot"></span><div><span class="what">🥩 히다규 가이세키</span><span class="note">다이닝 ‘Tokiwa’</span></div></li>
+      <li><span class="t">밤</span><span class="dot"></span><div><span class="what">🌙 료칸 온천에서 느긋하게</span></div></li>
+    </ol>
+    <div class="memo"><b>17:00까지 체크인 못 하면</b> 저녁 식사가 안 나오고 환불도 안 돼요. 눈길로 늦어질 것 같으면 숙소에 바로 전화하기!</div>
+  </div>
+</section>
+
+<section id="day4">
+  <div class="day"><span class="kanji k4 jp">月</span><div><h2>아울렛 들러 공항으로</h2><small>12월 21일 · 쇼핑한 짐은 트렁크에 쏙</small></div></div>
+  <div class="card">
+    <ol class="tl">
+      <li><span class="t">아침</span><span class="dot"></span><div><span class="what">♨ 아침 온천과 뷔페 조식</span><span class="note">일식·양식 뷔페</span></div></li>
+      <li><span class="t">10:00</span><span class="dot"></span><div><span class="what">체크아웃 후 출발</span></div></li>
+      <li class="key"><span class="t">12:00</span><span class="dot"></span><div><span class="what">🛍 재즈드림 나가시마 아울렛</span><span class="note">약 300개 매장 · 여권 챙기기(면세)</span></div></li>
+      <li><span class="t">15:30</span><span class="dot"></span><div><span class="what">공항으로 출발</span><span class="note">약 1시간</span></div></li>
+      <li class="key"><span class="t">16:45</span><span class="dot"></span><div><span class="what">🚗 주부공항 렌터카 반납</span></div></li>
+      <li><span class="t">17:30</span><span class="dot"></span><div><span class="what">진에어 체크인</span><span class="note">마감은 출발 50분 전쯤 · 면세점 마지막 쇼핑</span></div></li>
+      <li class="key"><span class="t">20:00</span><span class="dot"></span><div><span class="what">✈ 인천으로 출발</span><span class="note">22:15 인천 제2터미널 도착</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="stays">
+  <div class="sec-head"><span class="ico" aria-hidden="true">🏮</span><h2>숙소와 렌터카</h2></div>
+  <div class="card">
+    <div class="stay">
+      <span class="hanko jp" aria-label="예약 완료">予約<br>済</span>
+      <div class="stay-name">액세스 바이 르와지르 호텔 나고야</div>
+      <div class="stay-dates">12/18 금 – 12/20 일 · 2박 · 어른 2</div>
+      <ul>
+        <li>스탠다드 더블룸 · 금연 · 더블 침대 1 · 12~14㎡ · 조식 불포함</li>
+        <li>체크인 15:00 이후 · 체크아웃 10:00 이전</li>
+        <li>사카에역 380m · 히사야오도리역 410m</li>
+        <li>트립닷컴 예약 · 결제 완료 · 환불 불가</li>
+      </ul>
+      <div class="btns">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Access+by+Loisir+Hotel+Nagoya" target="_blank" rel="noopener">📍 지도 열기</a>
+      </div>
+    </div>
+    <div class="stay">
+      <span class="hanko wait jp" aria-label="예약 전">未定</span>
+      <div class="stay-name">렌터카</div>
+      <div class="car">
+        <div>픽업<b>12/20 일 9:00</b>사카에 근처</div>
+        <div>반납<b>12/21 월 16:45</b>주부국제공항</div>
+      </div>
+    </div>
+    <div class="stay">
+      <span class="hanko jp" aria-label="예약 완료">予約<br>済</span>
+      <div class="stay-name">게로 온천 스이메이칸</div>
+      <div class="stay-dates">12/20 일 – 12/21 월 · 1박 · 어른 2</div>
+      <ul>
+        <li>화실 (히센카쿠/산스이카쿠동)</li>
+        <li>히다규 포함 가이세키 저녁 18:00 · 뷔페 조식</li>
+        <li>체크인 17:00까지 필수 · 아고다 예약</li>
+      </ul>
+      <div class="btns">
+        <a class="btn" href="tel:+81576252800">📞 숙소 전화</a>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%8B%E5%91%82%E6%B8%A9%E6%B3%89+%E6%B0%B4%E6%98%8E%E9%A4%A8" target="_blank" rel="noopener">📍 지도 열기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="todo">
+  <div class="sec-head"><span class="ico" aria-hidden="true">🎒</span><h2>떠나기 전에</h2></div>
+  <div class="prog"><div class="bar"><i id="bar"></i></div><span id="progress"></span></div>
+  <div class="card">
+    <ul class="check" id="checklist">
+      <li><label><input type="checkbox" data-k="idp"><span>국제운전면허증 발급<small>한국 면허증만으로는 운전 불가 · 운전자 모두</small></span></label></li>
+      <li><label><input type="checkbox" data-k="tire"><span>렌터카 스노타이어 요청<small>12월 게로 산길은 눈과 빙판 가능</small></span></label></li>
+      <li><label><input type="checkbox" data-k="oneway"><span>공항 반납 가능 여부와 편도 요금 확인</span></label></li>
+      <li><label><input type="checkbox" data-k="hotel"><span>액세스 바이 르와지르 2박 예약<small>트립닷컴 예약 완료 · 금연 더블룸</small></span></label></li>
+      <li><label><input type="checkbox" data-k="ramen"><span>치이카와 라멘 부타 2인 예약<small>토요일이라 미리</small></span></label></li>
+      <li><label><input type="checkbox" data-k="ryokan"><span>스이메이칸 예약 날짜가 12/20인지 확인</span></label></li>
+      <li><label><input type="checkbox" data-k="bag"><span>항공 수하물 허용량 확인<small>아울렛 쇼핑 대비 · 필요하면 추가 수하물</small></span></label></li>
+      <li><label><input type="checkbox" data-k="passport"><span>여권 챙기기<small>면세 쇼핑에도 필요</small></span></label></li>
+      <li><label><input type="checkbox" data-k="warm"><span>두꺼운 옷과 미끄럽지 않은 신발</span></label></li>
+    </ul>
+  </div>
+</section>
+
+<footer><span class="mikans" aria-hidden="true">🍊❄️♨️❄️🍊</span>가격과 영업시간은 출발 전에 한 번 더 확인하기</footer>
+</div>
+
+<script>
+(function(){
+  var KEY='nagoya-trip-checks';
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  var boxes=document.querySelectorAll('#checklist input');
+  var prog=document.getElementById('progress'), bar=document.getElementById('bar');
+  function update(){
+    var done=0;boxes.forEach(function(b){if(b.checked)done++;});
+    prog.textContent=done===boxes.length?'준비 완료!':done+' / '+boxes.length;
+    bar.style.width=(done/boxes.length*100)+'%';
+  }
+  boxes.forEach(function(b){
+    b.checked=!!state[b.dataset.k];
+    b.addEventListener('change',function(){
+      state[b.dataset.k]=b.checked;
+      try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+      update();
+    });
+  });
+  update();
+  var links=document.querySelectorAll('.tabs a');
+  var secs=[].map.call(links,function(a){return document.querySelector(a.getAttribute('href'));});
+  function mark(){
+    var y=window.scrollY+130,idx=-1;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)idx=i;});
+    links.forEach(function(a,i){a.classList.toggle('on',i===idx);});
+    var on=links[idx];
+    if(on){var p=on.parentNode;p.scrollTo({left:on.offsetLeft-p.clientWidth/2+on.clientWidth/2,behavior:'smooth'});}
+  }
+  var ticking=false;
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){mark();ticking=false;});}},{passive:true});
+  mark();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+</script>
+</body>
+</html>
