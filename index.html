@@ -11,15 +11,23 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="나고야 여행">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#FBF7F0">
+<meta name="theme-color" content="#F6EEE3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@700&text=%E9%87%91%E5%9C%9F%E6%97%A5%E6%9C%88%E5%86%AC%E3%81%AE%E6%97%85%E4%BA%8C%E4%BA%BA%E5%90%8D%E5%8F%A4%E5%B1%8B%E4%B8%8B%E5%91%82%E6%B8%A9%E6%B3%89%E4%BA%88%E7%B4%84%E6%B8%88%E6%9C%AA%E5%AE%9A&display=swap" rel="stylesheet">
 <style>
 :root{
-  --washi:#FBF7F0; --paper:#FFFEFB; --ink:#4A3D31; --soft:#8A7B6B; --line:#EFE5D6;
-  --ai:#EFE2CC; --ai-deep:#E3D2B6; --shu:#D06A50; --sakura:#FBEAE2; --matcha:#B5C48F;
-  --mikan:#EBA75A; --snow:#F5EDE0; --on-ai:#5A4634; --wave:rgba(255,255,255,.6);
+  --linen:#F6EEE3; --paper:#FFFCF6; --ink:#3A2E26; --soft:#8A7866; --line:#E8DAC6;
+  --hero:#2F4058; --hero-deep:#24324A; --on-hero:#FFF8EE; --dot:rgba(255,255,255,.9);
+  --paprika:#C8553D; --blush:#FBE7DF; --pine:#4E7A5C; --gold:#D9A04A; --plum:#5D5B8E; --frost:#F0E5D5;
+  /* 보조색: 테마 바꿀 때 같이 바꾸기 */
+  --chip:#E7EFE8;            /* '가는 편' 칩, 지도 버튼 배경 */
+  --stripe:#EE9A7F;          /* 진행률 막대 줄무늬 두 번째 색 */
+  --seal-shade:rgba(140,50,30,.35); /* 예약 완료 도장 그림자 */
+  --hero-glow:rgba(255,190,120,.22); /* 헤더 오른쪽 위 은은한 빛 */
+  --glow:#FFC978; --glow-soft:#FFE2B0; /* 반짝이 별·등불 빛 */
+  --badge-font:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif; /* 요일 배지: 金土日月 */
   color-scheme:only light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
@@ -28,86 +36,115 @@
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);-webkit-text-size-adjust:100%}
 body{
-  margin:0;color:var(--ink);background-color:var(--washi);
-  background-image:radial-gradient(circle at 20% 30%, rgba(160,130,100,.05) 0 1px, transparent 1.5px),
-                   radial-gradient(circle at 70% 80%, rgba(160,130,100,.05) 0 1px, transparent 1.5px);
+  margin:0;color:var(--ink);background-color:var(--linen);
+  background-image:radial-gradient(circle at 20% 30%, rgba(150,110,90,.05) 0 1px, transparent 1.5px),
+                   radial-gradient(circle at 70% 80%, rgba(150,110,90,.05) 0 1px, transparent 1.5px);
   background-size:14px 14px, 23px 23px;
-  font-family:"Gowun Dodum","Zen Maru Gothic",-apple-system,"Apple SD Gothic Neo",sans-serif;
+  font-family:"Gowun Dodum",-apple-system,"Apple SD Gothic Neo",sans-serif;
   font-size:16px;line-height:1.65;
 }
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--washi)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--linen)}
 a{color:inherit}
-.jp{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;font-weight:700}
+.hu{font-family:"Fraunces",Georgia,serif;font-weight:600}
+.mj{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700}
 .wrap{max-width:560px;margin:0 auto;padding:0 16px 40px}
 
-/* ===== hero: noren + seigaiha ===== */
+/* ===== hero: 전나무 초록 밤 + 전구 줄 + 눈 쌓인 테두리
+   [테마 장식] .lights .drift .snow .spark .folk 은 계절·여행지에 맞게 바꾸는 자리 ===== */
 .hero{
-  margin:0 -16px;padding:34px 22px 64px;color:var(--on-ai);position:relative;overflow:hidden;
-  background-color:var(--ai);
+  margin:0 -16px;padding:50px 22px 70px;color:var(--on-hero);position:relative;overflow:hidden;
+  background-color:var(--hero);
   background-image:
-    radial-gradient(circle at 100% 150%, var(--ai) 24%, var(--wave) 25%, var(--wave) 28%, var(--ai) 29%, var(--ai) 36%, var(--wave) 36%, var(--wave) 40%, transparent 40%, transparent),
-    radial-gradient(circle at 0 150%, var(--ai) 24%, var(--wave) 25%, var(--wave) 28%, var(--ai) 29%, var(--ai) 36%, var(--wave) 36%, var(--wave) 40%, transparent 40%, transparent),
-    radial-gradient(circle at 50% 100%, var(--wave) 10%, var(--ai) 11%, var(--ai) 23%, var(--wave) 24%, var(--wave) 30%, var(--ai) 31%, var(--ai) 43%, var(--wave) 44%, var(--wave) 50%, var(--ai) 51%, var(--ai) 63%, var(--wave) 64%, var(--wave) 71%, transparent 71%, transparent);
-  background-size:56px 28px;
+    radial-gradient(ellipse at 80% -10%, var(--hero-glow), transparent 55%),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2220%22%20viewBox%3D%220%200%2040%2020%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-opacity%3D%22.10%22%20stroke-width%3D%221.3%22%3E%3Cg%20transform%3D%22translate%280%200%29%22%3E%3Ccircle%20r%3D%2220%22%20fill%3D%22%232F4058%22%2F%3E%3Ccircle%20r%3D%2219%22%2F%3E%3Ccircle%20r%3D%2214%22%2F%3E%3Ccircle%20r%3D%229%22%2F%3E%3Ccircle%20r%3D%224%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2840%200%29%22%3E%3Ccircle%20r%3D%2220%22%20fill%3D%22%232F4058%22%2F%3E%3Ccircle%20r%3D%2219%22%2F%3E%3Ccircle%20r%3D%2214%22%2F%3E%3Ccircle%20r%3D%229%22%2F%3E%3Ccircle%20r%3D%224%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2820%2010%29%22%3E%3Ccircle%20r%3D%2220%22%20fill%3D%22%232F4058%22%2F%3E%3Ccircle%20r%3D%2219%22%2F%3E%3Ccircle%20r%3D%2214%22%2F%3E%3Ccircle%20r%3D%229%22%2F%3E%3Ccircle%20r%3D%224%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%280%2020%29%22%3E%3Ccircle%20r%3D%2220%22%20fill%3D%22%232F4058%22%2F%3E%3Ccircle%20r%3D%2219%22%2F%3E%3Ccircle%20r%3D%2214%22%2F%3E%3Ccircle%20r%3D%229%22%2F%3E%3Ccircle%20r%3D%224%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%2840%2020%29%22%3E%3Ccircle%20r%3D%2220%22%20fill%3D%22%232F4058%22%2F%3E%3Ccircle%20r%3D%2219%22%2F%3E%3Ccircle%20r%3D%2214%22%2F%3E%3Ccircle%20r%3D%229%22%2F%3E%3Ccircle%20r%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size:auto, 40px 20px;
 }
-.noren{position:absolute;left:0;right:0;bottom:0;height:34px;display:flex;gap:6px;padding:0 10px}
-.noren span{flex:1;background:var(--washi);border-radius:14px 14px 0 0}
+.lights{position:absolute;top:0;left:0;width:100%;height:auto;display:block}
+.drift{position:absolute;left:0;right:0;bottom:-1px;height:28px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2028%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2018C20%208%2040%208%2060%2018S100%2028%20120%2018V28H0Z%22%20fill%3D%22%23F6EEE3%22%2F%3E%3C%2Fsvg%3E") 0 0/120px 28px repeat-x}
 .snow{position:absolute;inset:0;pointer-events:none}
-.snow i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.95;box-shadow:0 0 0 1px rgba(160,130,100,.15)}
+.snow i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.9}
+.spark{position:absolute;width:14px;height:14px;background:var(--glow-soft);transform:scale(0);
+  clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);filter:drop-shadow(0 0 4px var(--glow))}
+.lights .halo{opacity:.6}
+.folk .star{filter:drop-shadow(0 0 2px var(--glow))}
 .hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative}
-.kicker{display:inline-block;background:var(--shu);color:#fff;border-radius:999px;padding:3px 12px;font-size:14px}
-h1{font-family:"Jua",sans-serif;font-weight:400;font-size:38px;line-height:1.2;margin:14px 0 6px;position:relative}
-.hero p{margin:0;opacity:.9;position:relative}
-.onsen{width:78px;height:78px;flex:0 0 auto}
+.kicker{display:inline-block;background:var(--paprika);color:#fff;border-radius:999px;padding:3px 12px;font-size:14px;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.kicker .hu{font-style:italic;font-weight:600}
+h1{font-family:"Jua",sans-serif;font-weight:400;font-size:38px;line-height:1.2;margin:14px 0 6px;position:relative;text-shadow:0 2px 0 rgba(0,0,0,.18)}
+.hero p{margin:0;opacity:.92;position:relative}
+.folk{width:78px;height:78px;flex:0 0 auto}
 
-/* ===== ticket (きっぷ) ===== */
+/* ===== ticket ===== */
 .ticket{
-  position:relative;margin:-22px 6px 0;background:var(--paper);border-radius:16px;
-  border:2px solid var(--line);padding:16px 18px 14px;box-shadow:0 6px 0 var(--line);
+  position:relative;margin:-14px 6px 0;background:var(--paper);border-radius:16px;
+  border:2px solid var(--line);padding:24px 18px 14px;box-shadow:0 6px 0 var(--line);
+  background-image:repeating-conic-gradient(var(--hero) 0 25%,var(--paper) 0 50%);
+  background-size:8px 8px;background-repeat:repeat-x;background-position:0 0;
 }
-.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:var(--washi);border:2px solid var(--line)}
+.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:var(--linen);border:2px solid var(--line)}
 .ticket::before{left:-11px;border-left-color:transparent;border-bottom-color:transparent;transform:rotate(45deg)}
 .ticket::after{right:-11px;border-right-color:transparent;border-top-color:transparent;transform:rotate(45deg)}
 .route{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .stn{text-align:center}
 .stn b{display:block;font-family:"Jua",sans-serif;font-weight:400;font-size:26px;line-height:1.1}
+.stn b.mj{font-family:"Shippori Mincho","Hiragino Mincho ProN",serif;font-weight:700;font-size:24px}
+.stn b.hu{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:24px}
 .stn small{color:var(--soft);font-size:13px}
 .arrow{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--soft) 0 6px,transparent 6px 11px);position:relative}
-.arrow::after{content:"✈";position:absolute;left:50%;top:-12px;transform:translateX(-50%);background:var(--paper);padding:0 6px;color:var(--on-ai)}
+.arrow::after{content:"✈";position:absolute;left:50%;top:-12px;transform:translateX(-50%);background:var(--paper);padding:0 6px;color:var(--paprika)}
+.arrow.drive::after{content:"🚗";font-size:13px;top:-11px}
 .tmeta{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:2px dotted var(--line);font-size:14px}
 .tmeta span{color:var(--soft);display:block;font-size:12px}
 .tmeta b{font-weight:400;font-family:"Jua",sans-serif;font-size:17px}
+.tmeta b.tbd{color:var(--soft)}
 
 /* ===== sticky tabs ===== */
-nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--washi);margin:20px -16px 0;padding:10px 0}
+nav.days{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--linen);margin:20px -16px 0;padding:10px 0}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs a{flex:0 0 auto;text-decoration:none;font-size:14px;padding:7px 14px;border-radius:999px;background:var(--paper);border:2px solid var(--line);font-family:"Jua",sans-serif}
-.tabs a.on{background:var(--shu);border-color:var(--shu);color:#fff}
+.tabs a.on{background:var(--paprika);border-color:var(--paprika);color:#fff}
+/* 기본 배치(장식과 무관, 지우지 않기): 탭 위 여백, 장식·도장 위치 기준 */
+.tabs{padding-top:9px}
+nav.days{padding-top:4px}
+.card,.tabs a{position:relative}
+.hanko{z-index:2}
 
+
+/* ===== [탭 효과] 현재 탭이 바뀌면 그 탭 위로 온천 김이 피어오름 (동작 줄이기 설정이면 생략) ===== */
+.wisp{position:absolute;width:12px;height:18px;border-radius:50%;pointer-events:none;z-index:6;
+  background:radial-gradient(ellipse,rgba(150,128,110,.6),rgba(150,128,110,0) 70%);filter:blur(1.5px);
+  animation:rise 1.4s ease-out forwards}
+@keyframes rise{0%{transform:translate(0,4px) scale(.6);opacity:0}25%{opacity:1}100%{transform:translate(var(--dx),-26px) scale(1.6);opacity:0}}
 section{margin-top:30px}
 .sec-head{display:flex;align-items:center;gap:10px;margin:0 0 12px}
-.sec-head h2{font-family:"Jua",sans-serif;font-weight:400;font-size:24px;margin:0;line-height:1.2}
+.sec-head h2{font-family:"Jua",sans-serif;font-weight:400;font-size:24px;margin:0;line-height:1.2;padding-bottom:2px;background:linear-gradient(var(--paprika),var(--paprika)) 0 100%/28px 3px no-repeat}
 .sec-head .ico{font-size:22px}
 .card{background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:16px}
+.tbd{color:var(--soft)}
+.tbd-tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1px dashed var(--soft);color:var(--soft);vertical-align:2px;margin-left:4px;font-family:"Gowun Dodum",sans-serif}
 
 /* flights */
 .fl{display:flex;gap:12px;align-items:flex-start;padding:12px 0}
 .fl+.fl{border-top:2px dotted var(--line)}
 .fl:first-child{padding-top:0}.fl:last-child{padding-bottom:0}
 .chip{flex:0 0 auto;font-family:"Jua",sans-serif;font-size:13px;border-radius:10px;padding:4px 9px}
-.chip.go{background:var(--snow);color:var(--on-ai);border:1px solid var(--line)}
-.chip.back{background:var(--sakura);color:var(--shu)}
+.chip.go{background:var(--chip);color:var(--pine);border:1px solid var(--line)}
+.chip.back{background:var(--blush);color:var(--paprika)}
 .fl b{font-family:"Jua",sans-serif;font-weight:400;font-size:18px;display:block}
 .fl small{color:var(--soft);font-size:14px;display:block}
 
 /* day cards */
 .day{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-.kanji{
-  flex:0 0 56px;height:56px;border-radius:50%;display:grid;place-items:center;
-  color:#fff;font-size:24px;line-height:1;box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)
+.day{padding-top:10px}
+.badge{
+  flex:0 0 56px;height:56px;border-radius:50%;display:grid;place-items:center;position:relative;
+  color:#fff;font-size:24px;line-height:1;
+  box-shadow:0 2px 0 rgba(60,40,30,.15)
 }
-.k1{background:var(--mikan)} .k2{background:var(--shu)} .k3{background:#9A7B5A} .k4{background:var(--matcha)}
+.badge::after{content:"";position:absolute;inset:4px;border:1.5px solid rgba(255,255,255,.6);border-radius:50%}
+.day .badge{font-family:var(--badge-font)}
+.d1{background-color:var(--paprika)} .d2{background-color:var(--pine)} .d3{background-color:var(--gold)} .d4{background-color:var(--plum)}
 .day h2{font-family:"Jua",sans-serif;font-weight:400;font-size:24px;margin:0;line-height:1.2}
 .day small{color:var(--soft);font-size:14px}
 .tl{list-style:none;margin:0;padding:0 0 0 4px;position:relative}
@@ -115,15 +152,17 @@ section{margin-top:30px}
 .tl li{display:grid;grid-template-columns:56px 22px 1fr;align-items:start;padding:8px 0}
 .t{font-family:"Jua",sans-serif;font-size:15px;color:var(--soft);padding-top:2px;font-variant-numeric:tabular-nums}
 .dot{width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--line);margin:6px 0 0 2px;position:relative;z-index:1}
-.tl li.key .dot{border-color:var(--shu);background:var(--shu)}
-.tl li.key .t{color:var(--shu)}
+.tl li.key .dot{border:3px solid var(--paper);background:var(--paprika);width:16px;height:16px;margin:4px 0 0 0;box-shadow:0 0 0 2px var(--paprika)}
+.tl li.key .t{color:var(--paprika)}
+.tl li.free .what{color:var(--soft)}
+.tl li.free .dot{border-style:dashed}
 .what{font-size:16px}
 .tl li.key .what{font-family:"Jua",sans-serif;font-size:17px}
 .note{display:block;font-size:14px;color:var(--soft)}
 .memo{
-  margin-top:14px;background:var(--sakura);border-radius:14px;padding:12px 14px 12px 44px;font-size:14px;position:relative
+  margin-top:14px;background:var(--blush);border-radius:14px;padding:12px 14px 12px 44px;font-size:14px;position:relative
 }
-.memo::before{content:"⚠︎";position:absolute;left:14px;top:10px;font-size:18px;color:var(--shu)}
+.memo::before{content:"⚠︎";position:absolute;left:14px;top:10px;font-size:18px;color:var(--paprika)}
 
 /* stays */
 .stay{padding:14px 0;position:relative}
@@ -132,45 +171,50 @@ section{margin-top:30px}
 .stay-name{font-family:"Jua",sans-serif;font-size:19px;padding-right:70px}
 .stay-dates{font-size:14px;color:var(--soft)}
 .hanko{
-  position:absolute;right:2px;top:-4px;width:58px;height:58px;border-radius:50%;
-  border:3px solid var(--shu);color:var(--shu);display:grid;place-items:center;text-align:center;
-  font-size:13px;line-height:1.15;transform:rotate(-12deg);background:transparent
+  position:absolute;right:2px;top:-4px;width:58px;height:58px;border-radius:10px;
+  border:3px solid var(--paprika);color:var(--paprika);display:grid;place-items:center;text-align:center;
+  font-size:14px;line-height:1.15;transform:rotate(-6deg);background:transparent;font-family:"Jua",sans-serif
 }
+.hanko.mj{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:700}
 .stay:first-child .hanko{top:-8px}
+.hanko:not(.wait){border:none;background:var(--paprika);color:#fff;border-radius:10px;
+  box-shadow:inset 0 0 0 4px var(--paprika), inset 0 0 0 5.5px rgba(255,255,255,.55), 0 2px 0 var(--seal-shade)}
 .hanko.wait{border-style:dashed;border-color:var(--soft);color:var(--soft)}
 .stay ul{margin:8px 0 0;padding-left:18px;font-size:14px}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.btn{text-decoration:none;font-size:14px;padding:8px 14px;border-radius:999px;background:var(--snow);color:var(--on-ai);font-family:"Jua",sans-serif}
-.cand{display:flex;justify-content:space-between;gap:10px;padding:9px 0;font-size:14px}
-.cand+.cand{border-top:1px solid var(--line)}
-.cand a{text-decoration:none;font-family:"Jua",sans-serif;font-size:15px}
-.cand small{display:block;color:var(--soft)}
-.cand em{font-style:normal;flex:0 0 auto;align-self:center;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--washi);border:1px solid var(--line)}
+.btn{text-decoration:none;font-size:14px;padding:8px 14px;border-radius:999px;background:var(--chip);color:var(--pine);font-family:"Jua",sans-serif}
 .car{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.car div{background:var(--snow);border-radius:14px;padding:10px 12px;font-size:13px;color:var(--soft)}
+.car div{background:var(--frost);border-radius:14px;padding:10px 12px;font-size:13px;color:var(--soft)}
 .car b{display:block;font-family:"Jua",sans-serif;font-weight:400;font-size:16px;color:var(--ink)}
 
 /* checklist */
 .prog{display:flex;align-items:center;gap:10px;margin:-2px 0 12px;font-size:14px;color:var(--soft)}
 .bar{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--matcha);border-radius:999px;transition:width .3s}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(135deg,var(--paprika) 0 7px,var(--stripe) 7px 14px);border-radius:999px;transition:width .3s}
 .check{list-style:none;margin:0;padding:0}
 .check li+li{border-top:1px dotted var(--line)}
 .check label{display:flex;gap:12px;align-items:flex-start;padding:11px 0;cursor:pointer}
 .check input{appearance:none;-webkit-appearance:none;flex:0 0 24px;width:24px;height:24px;border:2px solid var(--line);border-radius:50%;margin:0;background:var(--paper);display:grid;place-content:center}
-.check input:checked{background:var(--shu);border-color:var(--shu)}
-.check input:checked::after{content:"済";color:#fff;font-size:12px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700}
-.check input:focus-visible{outline:3px solid var(--mikan);outline-offset:2px}
+.check input:checked{background:var(--pine);border-color:var(--pine)}
+.check input:checked::after{content:"✓";color:#fff;font-size:14px;font-weight:700;line-height:1}
+.check input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .check input:checked + span{color:var(--soft);text-decoration:line-through}
 .check small{display:block;color:var(--soft);font-size:13px}
 
 footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13px}
-footer .mikans{font-size:20px;letter-spacing:4px;display:block;margin-bottom:4px}
-a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:8px}
+footer .deco{font-size:20px;letter-spacing:4px;display:block;margin-bottom:4px}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
 @media (prefers-reduced-motion:no-preference){
-  .steam path{animation:rise 3.2s ease-in-out infinite}
-  .steam path:nth-child(2){animation-delay:.6s}.steam path:nth-child(3){animation-delay:1.2s}
-  @keyframes rise{0%,100%{transform:translateY(0);opacity:.9}50%{transform:translateY(-4px);opacity:.5}}
+  /* 초롱: 하나씩 다른 박자로 천천히 숨 쉬듯 밝아졌다 어두워짐 */
+  .lights .b .halo{animation:breathe var(--d) ease-in-out var(--dl) infinite}
+  @keyframes breathe{0%,100%{opacity:.25}50%{opacity:.8}}
+  /* 반짝이 별: 하나씩 번갈아 튀어나왔다 사라짐 */
+  @keyframes spark{0%{transform:scale(0) rotate(0)}6%{transform:scale(1.2) rotate(45deg)}12%{transform:scale(.9) rotate(70deg)}20%,100%{transform:scale(0) rotate(90deg)}}
+  .folk .steam path{animation:steam 2.6s ease-in-out infinite}
+  .folk .steam path:nth-child(2){animation-delay:-.9s} .folk .steam path:nth-child(3){animation-delay:-1.7s}
+  @keyframes steam{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-3px);opacity:.55}}
+  .folk .star{transform-origin:40px 14px;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1) rotate(0);filter:drop-shadow(0 0 2px var(--glow))}50%{transform:scale(1.3) rotate(18deg);filter:drop-shadow(0 0 6px var(--glow))}}
 }
 </style>
 </head>
@@ -178,32 +222,30 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
 <div class="wrap">
 
 <header class="hero">
-  <div class="snow" aria-hidden="true">
-    <i style="left:12%;top:18%"></i><i style="left:30%;top:8%;width:4px;height:4px"></i><i style="left:58%;top:22%"></i>
-    <i style="left:76%;top:12%;width:4px;height:4px"></i><i style="left:88%;top:40%"></i><i style="left:44%;top:46%;width:4px;height:4px"></i>
-  </div>
+  <svg class="lights" viewBox="0 0 400 40" aria-hidden="true"><defs><filter id="blur" x="-1" y="-1" width="3" height="3"><feGaussianBlur stdDeviation="3.5"/></filter></defs><path d="M0 7 Q40 13 80 7 T160 7 T240 7 T320 7 T400 7" fill="none" stroke="#141D2B" stroke-width="1.5"/><g class="b" style="--d:5.2s;--dl:-1s"><circle class="halo" cx="40" cy="23" r="14" fill="#FFB15C" filter="url(#blur)"/><line x1="40" y1="7" x2="40" y2="11" stroke="#141D2B" stroke-width="1.2"/><rect x="35" y="10.5" width="10" height="3.2" rx="1" fill="#2A1E18"/><ellipse class="bulb" cx="40" cy="22.5" rx="8" ry="9.5" fill="#D9482F"/><path d="M32.4 18.5h15.2M32 22.5h16M32.4 26.5h15.2" stroke="#7A2A18" stroke-width=".6" opacity=".35"/><circle cx="40" cy="22.5" r="3" fill="#FFF1D6" opacity=".9"/><rect x="35" y="31.3" width="10" height="3" rx="1" fill="#2A1E18"/><path d="M38.5 34.5v4M40 34.5v4.5M41.5 34.5v4" stroke="#C8553D" stroke-width=".9" stroke-linecap="round"/></g><g class="b" style="--d:6.1s;--dl:-3.2s"><circle class="halo" cx="120" cy="23" r="14" fill="#FFB15C" filter="url(#blur)"/><line x1="120" y1="7" x2="120" y2="11" stroke="#141D2B" stroke-width="1.2"/><rect x="115" y="10.5" width="10" height="3.2" rx="1" fill="#2A1E18"/><ellipse class="bulb" cx="120" cy="22.5" rx="8" ry="9.5" fill="#FFF1D6"/><path d="M112.4 18.5h15.2M112 22.5h16M112.4 26.5h15.2" stroke="#7A2A18" stroke-width=".6" opacity=".35"/><circle cx="120" cy="22.5" r="3" fill="#2F4058" opacity=".9"/><rect x="115" y="31.3" width="10" height="3" rx="1" fill="#2A1E18"/><path d="M118.5 34.5v4M120 34.5v4.5M121.5 34.5v4" stroke="#C8553D" stroke-width=".9" stroke-linecap="round"/></g><g class="b" style="--d:4.7s;--dl:-2.1s"><circle class="halo" cx="200" cy="23" r="14" fill="#FFB15C" filter="url(#blur)"/><line x1="200" y1="7" x2="200" y2="11" stroke="#141D2B" stroke-width="1.2"/><rect x="195" y="10.5" width="10" height="3.2" rx="1" fill="#2A1E18"/><ellipse class="bulb" cx="200" cy="22.5" rx="8" ry="9.5" fill="#D9482F"/><path d="M192.4 18.5h15.2M192 22.5h16M192.4 26.5h15.2" stroke="#7A2A18" stroke-width=".6" opacity=".35"/><circle cx="200" cy="22.5" r="3" fill="#FFF1D6" opacity=".9"/><rect x="195" y="31.3" width="10" height="3" rx="1" fill="#2A1E18"/><path d="M198.5 34.5v4M200 34.5v4.5M201.5 34.5v4" stroke="#C8553D" stroke-width=".9" stroke-linecap="round"/></g><g class="b" style="--d:5.8s;--dl:-4.4s"><circle class="halo" cx="280" cy="23" r="14" fill="#FFB15C" filter="url(#blur)"/><line x1="280" y1="7" x2="280" y2="11" stroke="#141D2B" stroke-width="1.2"/><rect x="275" y="10.5" width="10" height="3.2" rx="1" fill="#2A1E18"/><ellipse class="bulb" cx="280" cy="22.5" rx="8" ry="9.5" fill="#FFF1D6"/><path d="M272.4 18.5h15.2M272 22.5h16M272.4 26.5h15.2" stroke="#7A2A18" stroke-width=".6" opacity=".35"/><circle cx="280" cy="22.5" r="3" fill="#2F4058" opacity=".9"/><rect x="275" y="31.3" width="10" height="3" rx="1" fill="#2A1E18"/><path d="M278.5 34.5v4M280 34.5v4.5M281.5 34.5v4" stroke="#C8553D" stroke-width=".9" stroke-linecap="round"/></g><g class="b" style="--d:6.6s;--dl:-0.4s"><circle class="halo" cx="360" cy="23" r="14" fill="#FFB15C" filter="url(#blur)"/><line x1="360" y1="7" x2="360" y2="11" stroke="#141D2B" stroke-width="1.2"/><rect x="355" y="10.5" width="10" height="3.2" rx="1" fill="#2A1E18"/><ellipse class="bulb" cx="360" cy="22.5" rx="8" ry="9.5" fill="#D9482F"/><path d="M352.4 18.5h15.2M352 22.5h16M352.4 26.5h15.2" stroke="#7A2A18" stroke-width=".6" opacity=".35"/><circle cx="360" cy="22.5" r="3" fill="#FFF1D6" opacity=".9"/><rect x="355" y="31.3" width="10" height="3" rx="1" fill="#2A1E18"/><path d="M358.5 34.5v4M360 34.5v4.5M361.5 34.5v4" stroke="#C8553D" stroke-width=".9" stroke-linecap="round"/></g></svg>
+  
   <div class="hero-top">
-    <span class="kicker jp">冬の旅 · 2人旅</span>
-    <svg class="onsen" viewBox="0 0 80 80" aria-hidden="true">
-      <circle cx="40" cy="40" r="38" fill="#FFFAF2" opacity=".95"/>
-      <g class="steam" fill="none" stroke="#C4573F" stroke-width="5" stroke-linecap="round">
-        <path d="M26 44c-5-6 5-9 0-16"/><path d="M40 42c-5-6 5-9 0-16"/><path d="M54 44c-5-6 5-9 0-16"/>
+    <span class="kicker"><span class="mj">冬の旅</span> · 둘이 떠나는 온천 여행</span>
+    <svg class="folk" viewBox="0 0 80 80" aria-hidden="true">
+      <circle cx="40" cy="40" r="38" fill="#FFF8EE"/>
+      <g class="steam" fill="none" stroke="#C8553D" stroke-width="5" stroke-linecap="round">
+        <path d="M27 45c-5-6 5-9 0-16"/><path d="M40 43c-5-6 5-9 0-16"/><path d="M53 45c-5-6 5-9 0-16"/>
       </g>
-      <path d="M18 50c0 9 10 14 22 14s22-5 22-14" fill="none" stroke="#C4573F" stroke-width="5" stroke-linecap="round"/>
+      <path d="M18 51c0 9 10 14 22 14s22-5 22-14" fill="none" stroke="#C8553D" stroke-width="5" stroke-linecap="round"/>
     </svg>
   </div>
   <h1>나고야 · 게로<br>겨울 온천 여행</h1>
   <p>둘이 떠나는 3박 4일 ♡</p>
-  <div class="noren" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="drift" aria-hidden="true"></div>
 </header>
 
-<div class="ticket" role="img" aria-label="인천에서 나고야와 게로, 12월 18일부터 21일까지 2명">
+<div class="ticket" role="img" aria-label="인천에서 나고야와 게로, 12월 18일부터 21일까지, 어른 2명, 나고야 2박 게로 1박">
   <div class="route">
     <div class="stn"><b>인천</b><small>ICN</small></div>
     <div class="arrow"></div>
-    <div class="stn"><b class="jp">名古屋</b><small>나고야</small></div>
-    <div class="arrow" style="flex:.6"></div>
-    <div class="stn"><b class="jp">下呂</b><small>게로</small></div>
+    <div class="stn"><b class="mj">名古屋</b><small>나고야</small></div>
+    <div class="arrow drive" style="flex:.6"></div>
+    <div class="stn"><b class="mj">下呂</b><small>게로</small></div>
   </div>
   <div class="tmeta">
     <div><span>날짜</span><b>12.18 – 12.21</b></div>
@@ -215,10 +257,10 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
 <nav class="days" aria-label="섹션 이동">
   <div class="tabs">
     <a href="#flights">✈ 항공</a>
-    <a href="#day1">18 金</a>
-    <a href="#day2">19 土</a>
-    <a href="#day3">20 日</a>
-    <a href="#day4">21 月</a>
+    <a href="#day1">18 금</a>
+    <a href="#day2">19 토</a>
+    <a href="#day3">20 일</a>
+    <a href="#day4">21 월</a>
     <a href="#stays">🏨 숙소</a>
     <a href="#todo">✔ 준비물</a>
   </div>
@@ -229,29 +271,30 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
   <div class="card">
     <div class="fl">
       <span class="chip go">가는 편</span>
-      <div><b>12/18 금 · 15:45 → 17:30</b><small>LJ293 진에어 · 인천 제2터미널 → 나고야 · 1시간 45분</small><small>13:45까지 인천공항 제2터미널 도착 · 공항철도는 제2터미널역에서 내리기</small></div>
+      <div><b>12/18 금 · 15:45 → 17:30</b><small>LJ293 진에어 · 인천 제2터미널 → 나고야 주부국제공항 · 1시간 45분</small><small>13:15까지 인천공항 제2터미널 도착 · 공항철도는 인천공항2터미널역에서 내리기</small></div>
     </div>
     <div class="fl">
       <span class="chip back">오는 편</span>
-      <div><b>12/21 월 · 20:00 → 22:15</b><small>KE5082 (진에어 운항) · 나고야 제1터미널 → 인천 제2터미널</small><small>나고야에서는 진에어 카운터에서 체크인</small></div>
+      <div><b>12/21 월 · 20:00 → 22:15</b><small>KE5082 (진에어 운항) · 주부국제공항 제1터미널 → 인천 제2터미널</small><small>17:15까지 공항 도착 · 체크인은 진에어 카운터에서</small></div>
     </div>
   </div>
 </section>
 
 <section id="day1">
-  <div class="day"><span class="kanji k1 jp">金</span><div><h2>도착하는 밤</h2><small>12월 18일 · 나고야 첫 맛 보고 일찍 쉬기</small></div></div>
+  <div class="day"><span class="badge d1" aria-label="금요일">金</span><div><h2>도착하는 밤</h2><small>12월 18일 · 나고야 첫 맛 보고 일찍 쉬기</small></div></div>
   <div class="card">
     <ol class="tl">
+      <li class="key"><span class="t">10:00</span><span class="dot"></span><div><span class="what">🥞 치이카와야키 토요일분 예약</span><span class="note">출국 당일 아침 공식 사이트 오픈 · 집에서 미리!</span></div></li>
       <li class="key"><span class="t">17:30</span><span class="dot"></span><div><span class="what">주부국제공항 도착</span><span class="note">뮤스카이로 메이테쓰 나고야역까지 약 30분</span></div></li>
       <li><span class="t">19:30</span><span class="dot"></span><div><span class="what">액세스 바이 르와지르 체크인</span><span class="note">나고야역에서 지하철 사쿠라도리선으로 히사야오도리역(약 6분)</span></div></li>
       <li><span class="t">20:00</span><span class="dot"></span><div><span class="what">🍗 세카이노 야마짱 본점</span><span class="note">사카에 4-9-6 · 사카에역 도보 5분 · 평일 16:00–23:15 · 후추 듬뿍 테바사키와 맥주</span></div></li>
-      <li><span class="t">21:00</span><span class="dot"></span><div><span class="what">✨ 오아시스21 야경</span><span class="note">호텔에서 걸어서 산책, 유리 지붕 위 무료</span></div></li>
+      <li><span class="t">21:00</span><span class="dot"></span><div><span class="what">✨ 오아시스21 야경</span><span class="note">호텔에서 걸어서 산책 · 유리 지붕 위 무료</span></div></li>
     </ol>
   </div>
 </section>
 
 <section id="day2">
-  <div class="day"><span class="kanji k2 jp">土</span><div><h2>치이카와와 쇼핑</h2><small>12월 19일 · 사카에와 오스를 걸어서</small></div></div>
+  <div class="day"><span class="badge d2" aria-label="토요일">土</span><div><h2>치이카와와 쇼핑</h2><small>12월 19일 · 사카에와 오스를 걸어서</small></div></div>
   <div class="card">
     <ol class="tl">
       <li class="key"><span class="t">10:00</span><span class="dot"></span><div><span class="what">치이카와랜드 나고야 파르코점</span><span class="note">동관 3층 · 10:00–20:00 · 지하철 야바초역 · 혼잡일엔 입장 신청/정리권</span></div></li>
@@ -266,11 +309,11 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
 </section>
 
 <section id="day3">
-  <div class="day"><span class="kanji k3 jp">日</span><div><h2>게로 온천으로</h2><small>12월 20일 · 렌터카로 산길 드라이브</small></div></div>
+  <div class="day"><span class="badge d3" aria-label="일요일">日</span><div><h2>게로 온천으로</h2><small>12월 20일 · 점심 먹고 렌터카로 산길 드라이브</small></div></div>
   <div class="card">
     <ol class="tl">
       <li><span class="t">10:00</span><span class="dot"></span><div><span class="what">호텔 체크아웃</span><span class="note">짐은 프런트에 맡기고 사카에 산책·카페</span></div></li>
-      <li><span class="t">11:00</span><span class="dot"></span><div><span class="what">🍜 사카에에서 점심</span><span class="note">대부분 11:00 오픈 · 일요일 영업 확인</span></div></li>
+      <li><span class="t">11:00</span><span class="dot"></span><div><span class="what">🍜 사카에에서 점심 <span class="tbd-tag">추가 예정</span></span><span class="note">대부분 11:00 오픈 · 일요일 영업 확인</span></div></li>
       <li class="key"><span class="t">12:00</span><span class="dot"></span><div><span class="what">🚗 렌터카 픽업</span><span class="note">토요타렌터카 사카에 센트럴파크점(출발 전용) · 호텔에서 도보 5–7분 · 국제면허증·여권·한국 면허증</span></div></li>
       <li><span class="t">12:15</span><span class="dot"></span><div><span class="what">게로로 출발</span><span class="note">국도 41호선 경유 약 2시간 · 눈길이면 2시간 반 · 해 지기(16:40쯤) 전에 도착</span></div></li>
       <li><span class="t">14:30</span><span class="dot"></span><div><span class="what">♨ 게로 도착, 온천가 산책과 족욕</span><span class="note">히다강 다리 건너 천천히</span></div></li>
@@ -283,7 +326,7 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
 </section>
 
 <section id="day4">
-  <div class="day"><span class="kanji k4 jp">月</span><div><h2>아울렛 들러 공항으로</h2><small>12월 21일 · 쇼핑한 짐은 트렁크에 쏙</small></div></div>
+  <div class="day"><span class="badge d4" aria-label="월요일">月</span><div><h2>아울렛 들러 공항으로</h2><small>12월 21일 · 쇼핑한 짐은 트렁크에 쏙</small></div></div>
   <div class="card">
     <ol class="tl">
       <li><span class="t">아침</span><span class="dot"></span><div><span class="what">♨ 아침 온천과 뷔페 조식</span><span class="note">일식·양식 뷔페</span></div></li>
@@ -296,7 +339,7 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
       <li><span class="t">18:15</span><span class="dot"></span><div><span class="what">보안검색 · 출국심사 · 면세점</span><span class="note">19:20까지 게이트 · 19:30 탑승</span></div></li>
       <li class="key"><span class="t">20:00</span><span class="dot"></span><div><span class="what">✈ 인천으로 출발</span><span class="note">22:15 인천 제2터미널 도착</span></div></li>
     </ol>
-    <div class="memo"><b>2026년 11월부터 면세가 환급 방식으로 바뀌었어요.</b> 아울렛에선 세금 포함 가격으로 사고, 출국 때 공항에서 세관 확인을 받으면 나중에 소비세를 돌려받아요. 영수증 챙기기!</div>
+    <div class="memo"><b>2026년 11월부터 일본 면세가 환급 방식으로 바뀌었어요.</b> 아울렛에선 세금 포함 가격으로 사고, 출국 때 공항에서 세관 확인을 받으면 나중에 소비세를 돌려받아요. 영수증 챙기기!</div>
   </div>
 </section>
 
@@ -304,13 +347,13 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
   <div class="sec-head"><span class="ico" aria-hidden="true">🏮</span><h2>숙소와 렌터카</h2></div>
   <div class="card">
     <div class="stay">
-      <span class="hanko jp" aria-label="예약 완료">予約<br>済</span>
+      <span class="hanko mj" aria-label="예약 완료">予約<br>済</span>
       <div class="stay-name">액세스 바이 르와지르 호텔 나고야</div>
       <div class="stay-dates">12/18 금 – 12/20 일 · 2박 · 어른 2</div>
       <ul>
         <li>스탠다드 더블룸 · 금연 · 더블 침대 1 · 12~14㎡ · 조식 불포함</li>
         <li>체크인 15:00 이후 · 체크아웃 10:00 이전</li>
-        <li>사카에역 380m · 히사야오도리역 410m</li>
+        <li>사카에역 4번 출구 도보 5분 · 히사야오도리역 도보 6분</li>
         <li>트립닷컴 예약 · 결제 완료 · 환불 불가</li>
       </ul>
       <div class="btns">
@@ -318,7 +361,7 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
       </div>
     </div>
     <div class="stay">
-      <span class="hanko wait jp" aria-label="예약 예정">未定</span>
+      <span class="hanko wait mj" aria-label="예약 예정">未定</span>
       <div class="stay-name">토요타렌터카 · C1 클래스 랜덤</div>
       <div class="car">
         <div>픽업<b>12/20 일 12:00</b>사카에 센트럴파크점</div>
@@ -337,7 +380,7 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
       </div>
     </div>
     <div class="stay">
-      <span class="hanko jp" aria-label="예약 완료">予約<br>済</span>
+      <span class="hanko mj" aria-label="예약 완료">予約<br>済</span>
       <div class="stay-name">게로 온천 스이메이칸</div>
       <div class="stay-dates">12/20 일 – 12/21 월 · 1박 · 어른 2</div>
       <ul>
@@ -364,14 +407,14 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
       <li><label><input type="checkbox" data-k="etc"><span>렌터카 ETC 카드 신청<small>고속도로 톨게이트 통과용</small></span></label></li>
       <li><label><input type="checkbox" data-k="yaki"><span>치이카와야키 토요일 예약<small>12/18(금) 오전 10:00 공식 사이트 오픈 · 출국 전에!</small></span></label></li>
       <li><label><input type="checkbox" data-k="vjw"><span>Visit Japan Web 등록<small>입국심사·세관 QR 미리 만들기 · 각자</small></span></label></li>
-      <li><label><input type="checkbox" data-k="bag"><span>항공 수하물 허용량 확인<small>아울렛 쇼핑 대비 · 필요하면 추가 수하물</small></span></label></li>
-      <li><label><input type="checkbox" data-k="passport"><span>여권 챙기기<small>면세 쇼핑에도 필요</small></span></label></li>
-      <li><label><input type="checkbox" data-k="warm"><span>두꺼운 옷과 미끄럽지 않은 신발</span></label></li>
+      <li><label><input type="checkbox" data-k="bag"><span>항공 수하물 허용량 확인<small>진에어 · 아울렛 쇼핑 대비 · 필요하면 추가 수하물</small></span></label></li>
+      <li><label><input type="checkbox" data-k="passport"><span>여권 챙기기<small>면세 쇼핑·렌터카에도 필요</small></span></label></li>
+      <li><label><input type="checkbox" data-k="warm"><span>두꺼운 옷과 미끄럽지 않은 신발<small>12월 게로는 눈이 올 수 있어요</small></span></label></li>
     </ul>
   </div>
 </section>
 
-<footer><span class="mikans" aria-hidden="true">🍊❄️♨️❄️🍊</span>가격과 영업시간은 출발 전에 한 번 더 확인하기</footer>
+<footer><span class="deco" aria-hidden="true">🏮 ♨️ 🍵 ♨️ 🏮</span>가격과 영업시간은 출발 전에 한 번 더 확인하기</footer>
 </div>
 
 <script>
@@ -403,6 +446,25 @@ a:focus-visible{outline:3px solid var(--mikan);outline-offset:2px;border-radius:
     links.forEach(function(a,i){a.classList.toggle('on',i===idx);});
     var on=links[idx];
     if(on){var p=on.parentNode;p.scrollTo({left:on.offsetLeft-p.clientWidth/2+on.clientWidth/2,behavior:'smooth'});}
+    if(idx!==last){if(last!==null&&on)steam(on);last=idx;}
+  }
+  // [탭 효과] 바뀐 탭 위로 김 세 줄기 (가로 스크롤이 끝난 뒤 위치 계산)
+  var last=null,nav=document.querySelector('nav.days');
+  var calm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function steam(a){
+    if(calm||nav.querySelectorAll('.wisp').length>12)return;
+    setTimeout(function(){
+      var nr=nav.getBoundingClientRect(),r=a.getBoundingClientRect();
+      for(var i=0;i<3;i++){
+        var w=document.createElement('i');w.className='wisp';
+        w.style.left=(r.left-nr.left+r.width*(.25+.25*i)-6)+'px';
+        w.style.top=(r.top-nr.top-10)+'px';
+        w.style.setProperty('--dx',((i-1)*5)+'px');
+        w.style.animationDelay=(i*.12)+'s';
+        w.addEventListener('animationend',function(){this.remove();});
+        nav.appendChild(w);
+      }
+    },320);
   }
   var ticking=false;
   window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(function(){mark();ticking=false;});}},{passive:true});
