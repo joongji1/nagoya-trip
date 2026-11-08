@@ -200,6 +200,9 @@ section{margin-top:30px}
 .check input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .check input:checked + span{color:var(--soft);text-decoration:line-through}
 .check small{display:block;color:var(--soft);font-size:13px}
+.check li.has-thumb{display:flex;align-items:center;gap:10px}
+.check li.has-thumb label{flex:1;min-width:0}
+.thumb{flex:0 0 44px;width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--line);background:var(--paper)}
 
 footer{margin-top:34px;text-align:center;color:var(--soft);font-size:13px}
 footer .deco{font-size:20px;letter-spacing:4px;display:block;margin-bottom:4px}
@@ -436,7 +439,7 @@ a:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8
   <div class="sec-head"><span class="ico" aria-hidden="true">🛍</span><h2>살 것</h2></div>
   <div class="card">
     <ul class="check" id="buylist">
-      <li><label><input type="checkbox" data-k="buy-uni"><span>하마노 우니장<small>성게 소스 · 파는 곳 확인하기(돈키호테·백화점 식품관)</small></span></label></li>
+      <li class="has-thumb"><label><input type="checkbox" data-k="buy-uni"><span>하마노 우니장 (濱乃 うにひしお 雲丹醤)<small>성게를 발효시킨 어간장 · 140g·390g 병 · 파는 곳 확인하기(백화점 식품관 등)</small></span></label><img class="thumb" src="img/uni.jpg" alt="濱乃 うにひしお 병 사진" width="44" height="44"></li>
     </ul>
   </div>
 </section>
