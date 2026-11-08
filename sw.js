@@ -1,6 +1,6 @@
 const APP = 'nagoya-trip-';
 const CACHE = APP + 'v2';
-const CORE = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './img/uni.jpg'];
+const CORE = ['./', './index.html', './manifest.webmanifest', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './img/uni.jpg', './img/sugarbutter.jpg', './img/ogurabutter.jpg', './img/uiro.jpg', './img/ogura-langue.jpg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
