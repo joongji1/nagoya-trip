@@ -263,6 +263,7 @@ a:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8
     <a href="#day4">21 월</a>
     <a href="#stays">🏨 숙소</a>
     <a href="#todo">✔ 준비물</a>
+    <a href="#buy">🛍 살 것</a>
   </div>
 </nav>
 
@@ -431,6 +432,15 @@ a:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8
   </div>
 </section>
 
+<section id="buy">
+  <div class="sec-head"><span class="ico" aria-hidden="true">🛍</span><h2>살 것</h2></div>
+  <div class="card">
+    <ul class="check" id="buylist">
+      <li><label><input type="checkbox" data-k="buy-uni"><span>하마노 우니장<small>성게 소스 · 파는 곳 확인하기(돈키호테·백화점 식품관)</small></span></label></li>
+    </ul>
+  </div>
+</section>
+
 <footer><span class="deco" aria-hidden="true">🏮 ♨️ 🍵 ♨️ 🏮</span>가격과 영업시간은 출발 전에 한 번 더 확인하기</footer>
 </div>
 
@@ -446,6 +456,11 @@ a:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8
     prog.textContent=done===boxes.length?'준비 완료!':done+' / '+boxes.length;
     bar.style.width=(done/boxes.length*100)+'%';
   }
+  // 살 것 목록: 같은 저장 공간에 저장, 준비물 진행률에는 안 셈
+  document.querySelectorAll('#buylist input').forEach(function(b){
+    b.checked=!!state[b.dataset.k];
+    b.addEventListener('change',function(){state[b.dataset.k]=b.checked;try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}});
+  });
   boxes.forEach(function(b){
     b.checked=!!state[b.dataset.k];
     b.addEventListener('change',function(){
